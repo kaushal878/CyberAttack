@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0, 240, 255, 0.08), transparent 55%),
+    radial-gradient(circle at 80% 100%, rgba(34, 255, 136, 0.07), transparent 55%),
+    #05070d;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Faint moving grid backdrop */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle scanline overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: overlay;
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+  .glass-strong {
+    @apply bg-white/[0.06] backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+  .neon-text {
+    text-shadow:
+      0 0 8px rgba(0, 240, 255, 0.6),
+      0 0 18px rgba(0, 240, 255, 0.25);
+  }
+  .neon-border {
+    box-shadow:
+      0 0 0 1px rgba(0, 240, 255, 0.4),
+      0 0 16px rgba(0, 240, 255, 0.25);
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 select-none;
+  }
+  .btn-primary {
+    @apply btn bg-cyber-neon/15 text-cyber-neon hover:bg-cyber-neon/25 hover:shadow-neon border border-cyber-neon/40;
+  }
+  .btn-ghost {
+    @apply btn text-slate-300 hover:text-cyber-neon hover:bg-white/5 border border-transparent;
+  }
+  .chip {
+    @apply text-[11px] uppercase tracking-wider font-semibold px-2 py-1 rounded-md border;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.18);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.35);
+}
