@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Header from "./components/Header";
 import AttackGallery from "./components/AttackGallery";
+import EnhancedAttackGallery from "./components/EnhancedAttackGallery";
 import AttackSimulator from "./components/AttackSimulator";
 import { attacks } from "./data/attacks";
+import { allAttacks } from "./data/comprehensiveAttacks";
+import { additionalAttacks } from "./data/additionalAttacks";
 
 /**
  * Root view router. Two views:
@@ -35,7 +38,10 @@ export default function App() {
   const attackId = route.startsWith("attack/")
     ? route.slice("attack/".length)
     : null;
-  const attack = attackId ? attacks.find((a) => a.id === attackId) : undefined;
+  
+  // Combine all attacks for comprehensive search
+  const allComprehensiveAttacks = [...attacks, ...allAttacks, ...additionalAttacks];
+  const attack = attackId ? allComprehensiveAttacks.find((a) => a.id === attackId) : undefined;
 
   return (
     <div className="relative min-h-screen flex flex-col">
@@ -64,7 +70,7 @@ export default function App() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25 }}
             >
-              <AttackGallery onSelect={select} />
+              <EnhancedAttackGallery onSelect={select} />
             </motion.div>
           )}
         </AnimatePresence>

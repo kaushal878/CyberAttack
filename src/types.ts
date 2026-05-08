@@ -11,6 +11,54 @@ export interface AttackStep {
   technique?: string;
 }
 
+/** Attack difficulty levels for visual indicators */
+export type AttackDifficulty = "beginner" | "intermediate" | "advanced" | "expert";
+
+/** Attack impact levels for visual indicators */
+export type AttackImpact = "low" | "medium" | "high" | "critical";
+
+/** MITRE ATT&CK tactic categories */
+export type AttackTactic = 
+  | "initial-access"
+  | "execution"
+  | "persistence"
+  | "privilege-escalation"
+  | "defense-evasion"
+  | "credential-access"
+  | "discovery"
+  | "lateral-movement"
+  | "collection"
+  | "exfiltration"
+  | "command-and-control"
+  | "impact"
+  | "reconnaissance"
+  | "resource-development";
+
+/** Attack categories for organization */
+export type AttackCategory = 
+  | "network"
+  | "malware"
+  | "web-application"
+  | "authentication"
+  | "social-engineering"
+  | "wireless-iot"
+  | "cloud"
+  | "email"
+  | "denial-of-service"
+  | "apt"
+  | "supply-chain"
+  | "cryptography"
+  | "insider-threat"
+  | "mobile"
+  | "industrial"
+  | "ai-modern"
+  | "cryptocurrency"
+  | "physical"
+  | "reconnaissance"
+  | "exploitation"
+  | "data"
+  | "persistence";
+
 /** Props passed to every animation component. */
 export interface AnimationProps {
   /** 0-based index of the currently active step. */
@@ -35,9 +83,9 @@ export interface Attack {
   id: string;
   name: string;
   tagline: string;
-  category: string;
+  category: AttackCategory;
   /** Tailwind colour token used for accent gradients. */
-  accent: "cyan" | "magenta" | "lime" | "amber" | "violet";
+  accent: "cyan" | "magenta" | "lime" | "amber" | "violet" | "red" | "green" | "blue" | "orange" | "purple" | "pink";
   /** Lucide icon shown on cards and headers. */
   icon: LucideIcon;
   /** Short paragraph for the gallery card. */
@@ -56,4 +104,18 @@ export interface Attack {
   Preview: ComponentType<AnimationProps>;
   /** Quiz questions shown at the end of the simulation. */
   quiz: QuizQuestion[];
+  /** Attack difficulty level for visual indicators */
+  difficulty: AttackDifficulty;
+  /** Attack impact level for visual indicators */
+  impactLevel: AttackImpact;
+  /** MITRE ATT&CK tactic mapping */
+  tactic?: AttackTactic;
+  /** OSI layer where attack operates */
+  osiLayer?: number;
+  /** Target systems/types */
+  targets: string[];
+  /** Detection difficulty */
+  detectionDifficulty: AttackDifficulty;
+  /** Real-world examples/case studies */
+  realWorldExamples?: string[];
 }

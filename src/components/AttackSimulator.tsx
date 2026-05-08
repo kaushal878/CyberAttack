@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import type { Attack } from "../types";
 import { attacks } from "../data/attacks";
+import { allAttacks } from "../data/comprehensiveAttacks";
+import { additionalAttacks } from "../data/additionalAttacks";
 import Timeline from "./Timeline";
 import PlaybackControls from "./PlaybackControls";
 import ExplanationPanel from "./ExplanationPanel";
@@ -42,6 +44,9 @@ export default function AttackSimulator({ attack, onBack, onSwitch }: Props) {
     setStep(0);
     setIsPlaying(true);
   }, [attack.id]);
+
+  // Combine all attacks for quick switcher
+  const allComprehensiveAttacks = [...attacks, ...allAttacks, ...additionalAttacks];
 
   // step auto-advance loop
   useEffect(() => {
@@ -158,7 +163,7 @@ export default function AttackSimulator({ attack, onBack, onSwitch }: Props) {
 
       {/* Quick switcher */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1">
-        {attacks.map((a) => {
+        {allComprehensiveAttacks.map((a) => {
           const active = a.id === attack.id;
           return (
             <button
